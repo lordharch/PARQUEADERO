@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - Parkin P.B</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="img/logo.png" alt="Logo Parkin P.B" class="logo-img" />
+        <span>PARKIN P.B</span>
+      </div>
+      
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <ul class="nav-links" id="menuLinks">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html#quienes-somos">Quienes somos</a></li>
+        <li><a href="index.html#ubicacion">Ubicación</a></li>
+        <li><a href="login.html">Iniciar Sesión</a></li>
+        <li><a href="registro.html" class="active">Registrarme</a></li>
+        <li><a href="index.html#contacto">Contáctenos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="auth-container">
+      <h2>Crear Cuenta</h2>
+      <form id="registroForm" class="auth-form">
+        <div class="form-group">
+          <label for="nombres">Nombres</label>
+          <input type="text" id="nombres" name="nombres" placeholder="Ingresa tus nombres" required>
+        </div>
+
+        <div class="form-group">
+          <label for="apellidos">Apellidos</label>
+          <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa tus apellidos" required>
+        </div>
+
+        <div class="form-group">
+          <label for="usuario">Usuario</label>
+          <input type="text" id="usuario" name="usuario" placeholder="Crea un nombre de usuario" required>
+        </div>
+
+        <div class="form-group">
+          <label for="placa">Placa del Vehículo</label>
+          <input type="text" id="placa" name="placa" placeholder="Ej: ABC123" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha de nacimiento</label>
+          <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" name="contrasena" placeholder="Mínimo 6 caracteres" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmarContrasena">Confirmar Contraseña</label>
+          <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="Repite tu contraseña" required>
+        </div>
+
+        <button type="submit" class="auth-btn">Registrarme</button>
+      </form>
+      
+      <div id="mensajeRegistro" class="auth-message"></div>
+      
+      <div class="auth-links">
+        <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2025 Parkin P.B | Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Script básico para el menú responsive
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+    
+    // Cerrar el menú al hacer clic en un enlace (en móviles)
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

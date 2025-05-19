@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sesión - Parkin P.B</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="img/logo.png" alt="Logo Parkin P.B" class="logo-img" />
+        <span>PARKIN P.B</span>
+      </div>
+      
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <ul class="nav-links" id="menuLinks">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html#quienes-somos">Quienes somos</a></li>
+        <li><a href="index.html#ubicacion">Ubicación</a></li>
+        <li><a href="login.html" class="active">Iniciar Sesión</a></li>
+        <li><a href="registro.html">Registrarme</a></li>
+        <li><a href="index.html#contacto">Contáctenos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="auth-container">
+      <h2>Iniciar Sesión</h2>
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="usuario">Usuario</label>
+          <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usuario" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
+        </div>
+
+        <div class="remember-container">
+          <input type="checkbox" id="recordar" name="recordar">
+          <label for="recordar">Recordar mi sesión</label>
+        </div>
+
+        <button type="submit" class="auth-btn">Iniciar Sesión</button>
+      </form>
+      
+      <div id="mensajeLogin" class="auth-message"></div>
+      
+      <div class="auth-links">
+        <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
+        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2025 Parkin P.B | Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Script básico para el menú responsive
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+    
+    // Cerrar el menú al hacer clic en un enlace (en móviles)
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

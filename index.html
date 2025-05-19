@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Parkin P.B - Tu estacionamiento seguro</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="img/logo.png" alt="Logo Parkin P.B" class="logo-img" />
+        <span>PARKIN P.B</span>
+      </div>
+      
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <ul class="nav-links" id="menuLinks">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#quienes-somos">Quienes somos</a></li>
+        <li><a href="#ubicacion">Ubicación</a></li>
+        <li><a href="login.html">Iniciar Sesión</a></li>
+        <li><a href="registro.html">Registrarme</a></li>
+        <li><a href="#contacto">Contáctenos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Tu vehículo en manos seguras</h1>
+      <p>Más que un parqueadero, tu zona de confianza en la ciudad</p>
+      <a href="#reservar" class="btn-primary">Agendar</a>
+    </div>
+    <div class="hero-overlay"></div>
+  </section>
+
+  <section id="servicios" class="container">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="servicios-grid">
+      <div class="servicio-card">
+        <div class="icon-wrapper">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Seguridad 24/7</h3>
+        <p>Sistema de vigilancia y personal capacitado para cuidar tu vehículo todo el día.</p>
+      </div>
+      
+      <div class="servicio-card">
+        <div class="icon-wrapper">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <h3>Reservas Online</h3>
+        <p>Agenda tu espacio desde cualquier dispositivo y asegura tu lugar.</p>
+      </div>
+      
+      <div class="servicio-card">
+        <div class="icon-wrapper">
+          <i class="fas fa-hand-sparkles"></i>
+        </div>
+        <h3>Lavado Express</h3>
+        <p>Servicio adicional de limpieza para mantener tu vehículo impecable.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="quienes-somos" class="container alt-bg">
+    <div class="two-columns">
+      <div class="column-text">
+        <h2 class="section-title">Quiénes Somos</h2>
+        <p>Parkin P.B nace en 2022 con la misión de revolucionar la forma de estacionar en la ciudad, ofreciendo espacios seguros y tecnología de punta.</p>
+        <p>Contamos con un equipo comprometido con la seguridad y satisfacción de nuestros clientes, brindando soluciones eficientes para el cuidado de tu vehículo.</p>
+        <a href="about.html" class="btn-secondary">Conoce más</a>
+      </div>
+      <div class="column-image">
+        <img src="img/banner_.png" alt="Nuestro equipo" class="rounded-image">
+      </div>
+    </div>
+  </section>
+
+  <section id="ubicacion" class="container">
+    <h2 class="section-title">Dónde Encontrarnos</h2>
+    <div class="two-columns">
+      <div class="column-map">
+        <div class="map-container">
+        <!-- Aquí iría tu mapa real con Google Maps o similar -->
+            <iframe
+            src="https://www.google.com/maps?q=Carrera+11+%2380-53,+Bogotá,+Colombia&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            alt="Mapa de ubicación" class="map-placeholder">
+          </iframe>
+        </div>  
+      </div>
+      <div class="column-text">
+        <div class="ubicacion-info">
+          <div class="ubicacion-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h3>Dirección</h3>
+              <p>Carrera 11 # 80-53, Bogotá</p>
+            </div>
+          </div>
+          <div class="ubicacion-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h3>Horarios</h3>
+              <p>Lunes a Domingo: 6:00 AM - 10:00 PM</p>
+            </div>
+          </div>
+          <div class="ubicacion-item">
+            <i class="fas fa-phone-alt"></i>
+            <div>
+              <h3>Teléfono</h3>
+              <p>(313) 363-0141</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonios" class="alt-bg">
+    <div class="container">
+      <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+      <div class="testimonios-slider">
+        <div class="testimonio">
+          <div class="testimonio-content">
+            <p>"Excelente servicio, me encanta la tranquilidad de saber que mi auto está seguro. El sistema de reservas es muy práctico."</p>
+            <div class="cliente-info">
+              <div class="cliente-name">Harrison Baldion</div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="container">
+    <h2 class="section-title">Contáctenos</h2>
+    <div class="two-columns">
+      <div class="column-form">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono">
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Enviar mensaje</button>
+        </form>
+      </div>
+      <div class="column-text">
+        <div class="contacto-info">
+          <p>Estamos para ayudarte en todo lo que necesites. No dudes en ponerte en contacto con nosotros por cualquiera de estos medios:</p>
+          <div class="contacto-item">
+            <i class="fas fa-envelope"></i>
+            <p>servicioalcliente@parkingpb.com.co</p>
+          </div>
+          <div class="contacto-item">
+            <i class="fas fa-phone-alt"></i>
+            <p>(313) 363-0141</p>
+          </div>
+          <div class="contacto-item">
+            <i class="fab fa-whatsapp"></i>
+            <p>+57 3133630141</p>
+          </div>
+          <div class="social-media">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservar" class="container cta-section">
+    <div class="cta-content">
+      <h2>¿Listo para asegurar tu espacio?</h2>
+      <p>Agenda ahora y obtén un 10% de descuento en tu primera reserva</p>
+      <a href="registro.html" class="btn-primary">Registrarme ahora</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content container">
+      <div class="footer-logo">
+        <img src="img/logo.png" alt="Logo Parkin P.B" class="footer-logo-img" />
+        <p>PARKIN P.B</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h3>Enlaces rápidos</h3>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#quienes-somos">Sobre nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Servicios</h3>
+          <ul>
+            <li><a href="#">Parqueadero mensual</a></li>
+            <li><a href="#">Parqueadero por horas</a></li>
+            <li><a href="#">Lavado de vehículos</a></li>
+            <li><a href="#">Seguridad 24/7</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Términos y condiciones</a></li>
+            <li><a href="#">Política de privacidad</a></li>
+            <li><a href="#">Preguntas frecuentes</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Parkin P.B | Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Script básico para el menú responsive
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+    
+    // Cerrar el menú al hacer clic en un enlace (en móviles)
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
