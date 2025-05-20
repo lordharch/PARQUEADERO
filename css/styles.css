@@ -1,3 +1,7 @@
+/* ==========================================================================
+   ESTILOS GLOBALES - Compartidos por todas las ventanas
+   ========================================================================== */
+
 /* Importación de fuentes */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
@@ -74,7 +78,80 @@ ul {
   background-color: #f5f7fa;
 }
 
-/* Header y navegación */
+/* Estilos globales para botones */
+.btn-primary {
+  display: inline-block;
+  background-color: var(--secondary);
+  color: var(--light);
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(255, 111, 145, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #ff5483;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 111, 145, 0.4);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--primary);
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  border: 2px solid var(--primary);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary);
+  color: var(--light);
+  transform: translateY(-3px);
+}
+
+/* Contenedor principal de la página */
+main {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 150px); /* Altura mínima para cubrir la pantalla */
+}
+
+/* Animaciones generales */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Mensajes de notificación generales */
+.mensaje-exito {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.mensaje-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* ==========================================================================
+   HEADER Y NAVEGACIÓN - Presente en todas las páginas
+   ========================================================================== */
+
 header {
   position: fixed;
   width: 100%;
@@ -148,6 +225,130 @@ header.scrolled {
   cursor: pointer;
 }
 
+/* Media queries para navegación */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 100%;
+    flex-direction: column;
+    background: var(--primary);
+    padding: 2rem 0;
+    gap: 0;
+    transition: 0.4s;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 1rem 0;
+    border-radius: 0;
+  }
+}
+
+/* ==========================================================================
+   FOOTER - Presente en todas las páginas
+   ========================================================================== */
+
+footer {
+  background-color: var(--footer);
+  color: var(--light);
+  padding-top: 4rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  padding-bottom: 3rem;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.footer-logo p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.footer-column h3 {
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-column h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--secondary);
+}
+
+.footer-column ul li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-column ul li a:hover {
+  color: var(--secondary);
+}
+
+.footer-bottom {
+  padding: 1.5rem 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
+
+/* Media queries para footer */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* ==========================================================================
+   VENTANA: PÁGINA DE INICIO / LANDING PAGE
+   ========================================================================== */
+
 /* Hero section */
 #hero {
   height: 100vh;
@@ -191,46 +392,6 @@ header.scrolled {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Botones */
-.btn-primary {
-  display: inline-block;
-  background-color: var(--secondary);
-  color: var(--light);
-  padding: 0.9rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(255, 111, 145, 0.3);
-}
-
-.btn-primary:hover {
-  background-color: #ff5483;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 111, 145, 0.4);
-}
-
-.btn-secondary {
-  display: inline-block;
-  background-color: transparent;
-  color: var(--primary);
-  padding: 0.8rem 1.8rem;
-  border-radius: 50px;
-  font-weight: 600;
-  border: 2px solid var(--primary);
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.btn-secondary:hover {
-  background-color: var(--primary);
-  color: var(--light);
-  transform: translateY(-3px);
-}
-
 /* Sección de servicios */
 .servicios-grid {
   display: grid;
@@ -264,6 +425,15 @@ header.scrolled {
 .servicio-card h3 {
   margin-bottom: 1rem;
   color: var(--primary-dark);
+}
+
+/* Animaciones para cards de servicios */
+.servicio-card:hover {
+  transform: translateY(-10px);
+}
+
+.servicio-card:hover .icon-wrapper {
+  background: var(--secondary);
 }
 
 /* Sección Quiénes Somos */
@@ -405,33 +575,6 @@ header.scrolled {
   transform: translateY(-3px);
 }
 
-/* Formulario */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(107, 105, 200, 0.2);
-}
-
 /* Sección CTA */
 .cta-section {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -453,77 +596,18 @@ header.scrolled {
   margin-right: auto;
 }
 
-/* Footer */
-footer {
-  background-color: var(--footer);
-  color: var(--light);
-  padding-top: 4rem;
-}
-
-.footer-content {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
-  padding-bottom: 3rem;
-}
-
-.footer-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.footer-logo-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-}
-
-.footer-logo p {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.footer-links {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.footer-column h3 {
-  margin-bottom: 1.5rem;
-  position: relative;
-  display: inline-block;
-}
-
-.footer-column h3::after {
-  content: '';
+/* Solución para imagen de fondo hero section */
+.hero-background {
   position: absolute;
-  bottom: -8px;
+  top: 0;
   left: 0;
-  width: 40px;
-  height: 3px;
-  background: var(--secondary);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-.footer-column ul li {
-  margin-bottom: 0.8rem;
-}
-
-.footer-column ul li a:hover {
-  color: var(--secondary);
-}
-
-.footer-bottom {
-  padding: 1.5rem 0;
-  text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.9rem;
-}
-
-/* Diseño responsivo */
+/* Media queries para página de inicio */
 @media (max-width: 1024px) {
   .hero-content h1 {
     font-size: 3rem;
@@ -533,37 +617,6 @@ footer {
 @media (max-width: 768px) {
   .container {
     padding: 60px 20px;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 80px;
-    left: -100%;
-    width: 100%;
-    flex-direction: column;
-    background: var(--primary);
-    padding: 2rem 0;
-    gap: 0;
-    transition: 0.4s;
-  }
-
-  .nav-links.active {
-    left: 0;
-  }
-
-  .nav-links li {
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav-links li a {
-    display: block;
-    padding: 1rem 0;
-    border-radius: 0;
   }
 
   .two-columns {
@@ -586,16 +639,6 @@ footer {
   .section-title {
     font-size: 2rem;
   }
-
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .footer-links {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -616,34 +659,9 @@ footer {
   }
 }
 
-/* Animaciones y efectos adicionales */
-.servicio-card:hover {
-  transform: translateY(-10px);
-}
-
-.servicio-card:hover .icon-wrapper {
-  background: var(--secondary);
-}
-
-/* Solución para imagen de fondo hero section */
-/* Si tienes problemas con la imagen de fondo, puedes usar este método alternativo */
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-/* Estilos para login y registro - Parkin P.B */
-
-/* Contenedor principal de la página */
-main {
-  padding: 20px;
-  background-color: #f8f9fa;
-  min-height: calc(100vh - 150px); /* Altura mínima para cubrir la pantalla */
-}
+/* ==========================================================================
+   VENTANA: LOGIN Y REGISTRO
+   ========================================================================== */
 
 /* Contenedor principal para formularios de login/registro */
 .auth-container {
@@ -772,7 +790,17 @@ main {
   border: 1px solid #c8e6c9;
 }
 
-/* Estilos responsivos */
+/* Animación simple para el formulario */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Media queries para login y registro */
 @media (max-width: 768px) {
   .auth-container {
     max-width: 90%;
@@ -788,15 +816,9 @@ main {
   }
 }
 
-/* Animación simple para el formulario */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.auth-container {
-  animation: fadeIn 0.5s ease-out;
-}
+/* ==========================================================================
+   VENTANA: GESTIÓN DE ESPACIOS / PARKING
+   ========================================================================== */
 /* Estilos para la tabla de espacios */
 .tabla-espacios {
   width: 100%;
@@ -842,7 +864,7 @@ main {
   font-weight: 600;
 }
 
-/* Mensajes de notificación */
+/* Mensajes de notificación específicos */
 #mensajeRetiro, 
 #mensajeRegistro {
   margin-top: 1rem;
@@ -851,69 +873,9 @@ main {
   font-weight: 500;
 }
 
-.mensaje-exito {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.mensaje-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-/* Footer */
-footer {
-  background-color: #2c3e50;
-  color: #ecf0f1;
-  text-align: center;
-  padding: 1.5rem;
-  margin-top: 2rem;
-}
-
-/* Media queries */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    padding: 1rem;
-  }
-  
-  .logo {
-    margin-bottom: 1rem;
-  }
-  
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .nav-links li {
-    margin: 0.5rem 0;
-    margin-left: 0;
-  }
-  
-  .tabla-espacios {
-    font-size: 0.9rem;
-  }
-  
-  .tabla-espacios th,
-  .tabla-espacios td {
-    padding: 0.6rem 0.5rem;
-  }
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-main {
-  animation: fadeIn 0.4s ease-in-out;
-}
-/* Estilos específicos para la página de Retiro de Vehículo */
+/* ==========================================================================
+   VENTANA: RETIRO DE VEHÍCULO
+   ========================================================================== */
 
 /* Estilo general del formulario de retiro */
 .formulario {
@@ -1048,7 +1010,21 @@ main {
   animation: slideIn 0.5s ease-out forwards;
 }
 
-/* Estilos responsivos */
+/* Efecto de onda al hacer clic en el botón */
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(107, 105, 200, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(107, 105, 200, 0);
+  }
+}
+
+#retiroForm button:focus {
+  animation: ripple 0.8s linear;
+}
+
+/* Media queries para retiro de vehículo */
 @media (max-width: 768px) {
   .formulario {
     margin: 2rem auto;
@@ -1065,19 +1041,9 @@ main {
   }
 }
 
-/* Efecto de onda al hacer clic en el botón */
-@keyframes ripple {
-  0% {
-    box-shadow: 0 0 0 0 rgba(107, 105, 200, 0.3);
-  }
-  100% {
-    box-shadow: 0 0 0 20px rgba(107, 105, 200, 0);
-  }
-}
-
-#retiroForm button:focus {
-  animation: ripple 0.8s linear;
-}
+/* ==========================================================================
+   VENTANA: DASHBOARD ADMINISTRATIVO
+   ========================================================================== */
 
 /* Dashboard layout */
 .admin-dashboard {
