@@ -34,40 +34,60 @@
     <div class="auth-container">
       <h2>Crear Cuenta</h2>
       <form id="registroForm" class="auth-form">
-        <div class="form-group">
-          <label for="nombres">Nombres</label>
-          <input type="text" id="nombres" name="nombres" placeholder="Ingresa tus nombres" required>
+
+         <div class="form-group">
+    <label for="identificacion">Identificación</label>
+    <input type="text" id="identificacion" name="identificacion" placeholder="Ej: 123456789" required>
         </div>
 
         <div class="form-group">
-          <label for="apellidos">Apellidos</label>
-          <input type="text" id="apellidos" name="apellidos" placeholder="Ingresa tus apellidos" required>
+          <label for="nombre_completo">Nombre completo</label>
+          <input type="text" id="nombre_completo" name="nombre_completo" placeholder="Ej: Juan Pérez" required>
         </div>
 
         <div class="form-group">
-          <label for="usuario">Usuario</label>
-          <input type="text" id="usuario" name="usuario" placeholder="Crea un nombre de usuario" required>
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="Ej: correo@ejemplo.com" required>
         </div>
 
         <div class="form-group">
-          <label for="placa">Placa del Vehículo</label>
-          <input type="text" id="placa" name="placa" placeholder="Ej: ABC123" required>
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" name="telefono" placeholder="Ej: 3123456789" required>
         </div>
 
         <div class="form-group">
-          <label for="fechaNacimiento">Fecha de nacimiento</label>
-          <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+          <label for="id_tipo_usuario">Tipo de Usuario</label>
+          <select id="id_tipo_usuario" name="id_tipo_usuario" required>
+            <option value="">Seleccione</option>
+            <option value="1">Premium</option>
+            <option value="2">Cliente</option>
+            <!-- Agrega más según los datos reales en tu tabla TipoUsuario -->
+          </select>
+        </div>
+        <!-- Agregar estos campos -->
+        <div class="form-group">
+          <label for="marca">Marca del Vehículo</label>
+          <input type="text" id="marca" name="marca" required>
         </div>
 
         <div class="form-group">
-          <label for="contrasena">Contraseña</label>
-          <input type="password" id="contrasena" name="contrasena" placeholder="Mínimo 6 caracteres" required>
+          <label for="modelo">Modelo</label>
+          <input type="text" id="modelo" name="modelo" required>
         </div>
 
         <div class="form-group">
-          <label for="confirmarContrasena">Confirmar Contraseña</label>
-          <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="Repite tu contraseña" required>
+          <label for="color">Color</label>
+          <input type="text" id="color" name="color" required>
         </div>
+
+        <div class="form-group">
+          <label for="id_tipo_vehiculo">Tipo de Vehículo</label>
+          <select id="id_tipo_vehiculo" name="id_tipo_vehiculo" required>
+            <option value="">Seleccione</option>
+            <!-- Poblar desde tabla TipoVehiculo -->
+          </select>
+        </div>
+
 
         <button type="submit" class="auth-btn">Registrarme</button>
       </form>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Usuario - Parkin P.B</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/estilo.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="img/LOGO.png" alt="Logo Parkin P.B" class="logo-img" />
+        <span>PARKIN P.B</span>
+      </div>
+      
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+        <ul class="nav-links" id="menuLinks">
+          <li><a href="index.html">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="user-dashboard">
+      <!-- Sidebar de usuario -->
+      <aside class="user-sidebar">
+        <div class="user-profile">
+          <img src="/api/placeholder/80/80" alt="Foto de Perfil">
+          <h3>Bienvenido/a</h3>
+          <p id="nombreUsuario">Usuario</p>
+        </div>
+        <ul class="user-menu">
+          <li><a href="#" class="active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> Resumen</a></li>
+          <li><a href="#" data-tab="vehicles"><i class="fas fa-car"></i> Mis Vehículos</a></li>
+          <li><a href="#" data-tab="spaces"><i class="fas fa-parking"></i> Espacios</a></li>
+          <li><a href="#" data-tab="entry-exit"><i class="fas fa-exchange-alt"></i> Entrada/Salida</a></li>
+          <li><a href="#" data-tab="history"><i class="fas fa-history"></i> Historial</a></li>
+          <li><a href="#" data-tab="settings"><i class="fas fa-cog"></i> Configuración</a></li>
+        </ul>
+      </aside>
+
+      <!-- Contenido principal -->
+      <div class="user-content">
+        <!-- Pestaña de Resumen -->
+        <section id="dashboard" class="tab-content active">
+          <div class="section-header">
+            <h2>Mi Resumen</h2>
+            <p class="last-login">Último acceso: <span id="ultimoAcceso">21/05/2025 14:30</span></p>
+          </div>
+
+          <div class="widget-container">
+            <div class="widget">
+              <div class="widget-header">
+                <h3>Estado Actual</h3>
+                <i class="fas fa-car"></i>
+              </div>
+              <div class="widget-value" id="estadoActual">Estacionado</div>
+              <div class="widget-footer">
+                <span>Desde: <span id="horaEntrada">15/05/2025 08:30</span></span>
+              </div>
+            </div>
+
+            <div class="widget">
+              <div class="widget-header">
+                <h3>Tiempo Acumulado</h3>
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="widget-value" id="tiempoAcumulado">8h 45m</div>
+              <div class="widget-footer">
+                <span>Este mes</span>
+              </div>
+            </div>
+
+            <div class="widget">
+              <div class="widget-header">
+                <h3>Costo Actual</h3>
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="widget-value" id="costoActual">$12.500</div>
+              <div class="widget-footer">
+                <span>Tarifa: $1.500/hora</span>
+              </div>
+            </div>
+
+            <div class="widget">
+              <div class="widget-header">
+                <h3>Espacio Asignado</h3>
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="widget-value" id="espacioAsignado">A-12</div>
+              <div class="widget-footer">
+                <span>Nivel 1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <h3>Acciones Rápidas</h3>
+            <div class="action-buttons">
+              <button class="btn btn-primary" id="btnRegistrarEntrada"><i class="fas fa-sign-in-alt"></i> Registrar Entrada</button>
+              <button class="btn btn-secondary" id="btnRegistrarSalida"><i class="fas fa-sign-out-alt"></i> Registrar Salida</button>
+              <button class="btn btn-info" id="btnReservar"><i class="fas fa-calendar-plus"></i> Reservar Espacio</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pestaña de Mis Vehículos -->
+        <section id="vehicles" class="tab-content">
+          <div class="section-header">
+            <h2>Mis Vehículos</h2>
+            <button class="btn btn-primary" id="btnAddVehicle"><i class="fas fa-plus"></i> Añadir Vehículo</button>
+          </div>
+
+          <div class="vehicles-container">
+            <div class="vehicle-card">
+              <div class="vehicle-info">
+                <div class="vehicle-plate">ABC123</div>
+                <div class="vehicle-type">Automóvil</div>
+                <div class="vehicle-details">
+                  <div><strong>Marca:</strong> Toyota</div>
+                  <div><strong>Modelo:</strong> Corolla</div>
+                  <div><strong>Año:</strong> 2023</div>
+                  <div><strong>Color:</strong> Blanco</div>
+                </div>
+              </div>
+              <div class="vehicle-actions">
+                <button class="btn-icon btn-edit" title="Editar"><i class="fas fa-edit"></i></button>
+                <button class="btn-icon btn-delete" title="Eliminar"><i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+
+            <div class="vehicle-card">
+              <div class="vehicle-info">
+                <div class="vehicle-plate">XYZ789</div>
+                <div class="vehicle-type">Motocicleta</div>
+                <div class="vehicle-details">
+                  <div><strong>Marca:</strong> Honda</div>
+                  <div><strong>Modelo:</strong> CB190</div>
+                  <div><strong>Año:</strong> 2024</div>
+                  <div><strong>Color:</strong> Negro</div>
+                </div>
+              </div>
+              <div class="vehicle-actions">
+                <button class="btn-icon btn-edit" title="Editar"><i class="fas fa-edit"></i></button>
+                <button class="btn-icon btn-delete" title="Eliminar"><i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pestaña de Espacios -->
+        <section id="spaces" class="tab-content">
+          <div class="section-header">
+            <h2>Espacios Disponibles</h2>
+            <div class="filter-options">
+              <select id="filterLevel">
+                <option value="all">Todos los niveles</option>
+                <option value="1">Nivel 1</option>
+                <option value="2">Nivel 2</option>
+              </select>
+              <select id="filterType">
+                <option value="all">Todos los tipos</option>
+                <option value="auto">Automóvil</option>
+                <option value="moto">Motocicleta</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="spaces-grid">
+            <div class="spaces-legend">
+              <div class="legend-item">
+                <div class="space-indicator available"></div>
+                <span>Disponible</span>
+              </div>
+              <div class="legend-item">
+                <div class="space-indicator occupied"></div>
+                <span>Ocupado</span>
+              </div>
+              <div class="legend-item">
+                <div class="space-indicator reserved"></div>
+                <span>Reservado</span>
+              </div>
+              <div class="legend-item">
+                <div class="space-indicator your-space"></div>
+                <span>Tu espacio</span>
+              </div>
+            </div>
+
+            <div class="spaces-map" id="espaciosMap">
+              <!-- Esta sección será llenada dinámicamente con JS -->
+              <!-- Ejemplo: -->
+              <div class="space-item available" data-id="A-1" data-level="1" data-type="auto">
+                <span>A-1</span>
+              </div>
+              <div class="space-item occupied" data-id="A-2" data-level="1" data-type="auto">
+                <span>A-2</span>
+              </div>
+              <div class="space-item your-space" data-id="A-12" data-level="1" data-type="auto">
+                <span>A-12</span>
+              </div>
+              <div class="space-item available" data-id="B-1" data-level="1" data-type="moto">
+                <span>B-1</span>
+              </div>
+              <div class="space-item reserved" data-id="B-2" data-level="1" data-type="moto">
+                <span>B-2</span>
+              </div>
+              <!-- Más espacios serían agregados dinámicamente -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Pestaña de Entrada/Salida -->
+        <section id="entry-exit" class="tab-content">
+          <div class="section-header">
+            <h2>Registro de Entrada/Salida</h2>
+          </div>
+
+          <div class="entry-exit-container">
+            <div class="entry-form">
+              <h3>Registrar Entrada</h3>
+              <form id="entradaForm">
+                <div class="form-group">
+                  <label for="vehiculoEntrada">Seleccione Vehículo:</label>
+                  <select id="vehiculoEntrada" name="vehiculoEntrada" required>
+                    <option value="">Seleccione un vehículo</option>
+                    <option value="ABC123">ABC123 - Toyota Corolla</option>
+                    <option value="XYZ789">XYZ789 - Honda CB190</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="horaEntradaManual">Hora de Entrada:</label>
+                  <input type="datetime-local" id="horaEntradaManual" name="horaEntradaManual">
+                  <small>Dejar en blanco para usar la hora actual</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar Entrada</button>
+              </form>
+              <div id="mensajeEntrada" class="form-message"></div>
+            </div>
+
+            <div class="exit-form">
+              <h3>Registrar Salida</h3>
+              <form id="salidaForm">
+                <div class="form-group">
+                  <label for="vehiculoSalida">Seleccione Vehículo:</label>
+                  <select id="vehiculoSalida" name="vehiculoSalida" required>
+                    <option value="">Seleccione un vehículo</option>
+                    <option value="ABC123">ABC123 - Toyota Corolla (Estacionado en A-12)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="horaSalidaManual">Hora de Salida:</label>
+                  <input type="datetime-local" id="horaSalidaManual" name="horaSalidaManual">
+                  <small>Dejar en blanco para usar la hora actual</small>
+                </div>
+                <button type="submit" class="btn btn-secondary">Registrar Salida</button>
+              </form>
+              <div id="mensajeSalida" class="form-message"></div>
+            </div>
+          </div>
+
+          <div class="receipt-container" id="reciboContainer" style="display: none;">
+            <div class="receipt">
+              <h3>Recibo de Salida</h3>
+              <div class="receipt-info">
+                <div class="receipt-row">
+                  <span>Vehículo:</span>
+                  <span id="reciboVehiculo">ABC123 - Toyota Corolla</span>
+                </div>
+                <div class="receipt-row">
+                  <span>Entrada:</span>
+                  <span id="reciboEntrada">15/05/2025 08:30</span>
+                </div>
+                <div class="receipt-row">
+                  <span>Salida:</span>
+                  <span id="reciboSalida">15/05/2025 17:15</span>
+                </div>
+                <div class="receipt-row">
+                  <span>Tiempo total:</span>
+                  <span id="reciboTiempo">8h 45m</span>
+                </div>
+                <div class="receipt-row receipt-total">
+                  <span>Total a pagar:</span>
+                  <span id="reciboTotal">$12.500</span>
+                </div>
+              </div>
+              <button class="btn btn-primary" id="btnImprimirRecibo">Imprimir Recibo</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pestaña de Historial -->
+        <section id="history" class="tab-content">
+          <div class="section-header">
+            <h2>Historial de Uso</h2>
+            <div class="filter-options">
+              <select id="filterMonth">
+                <option value="all">Todos los meses</option>
+                <option value="5">Mayo 2025</option>
+                <option value="4">Abril 2025</option>
+                <option value="3">Marzo 2025</option>
+              </select>
+              <select id="filterVehicle">
+                <option value="all">Todos los vehículos</option>
+                <option value="ABC123">ABC123 - Toyota Corolla</option>
+                <option value="XYZ789">XYZ789 - Honda CB190</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Vehículo</th>
+                  <th>Entrada</th>
+                  <th>Salida</th>
+                  <th>Tiempo</th>
+                  <th>Espacio</th>
+                  <th>Costo</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="historialBody">
+                <tr>
+                  <td>ABC123</td>
+                  <td>15/05/2025 08:30</td>
+                  <td>15/05/2025 17:15</td>
+                  <td>8h 45m</td>
+                  <td>A-12</td>
+                  <td>$12.500</td>
+                  <td class="row-actions">
+                    <button class="btn-icon btn-view" title="Ver Detalle"><i class="fas fa-eye"></i></button>
+                    <button class="btn-icon btn-print" title="Imprimir"><i class="fas fa-print"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ABC123</td>
+                  <td>14/05/2025 09:15</td>
+                  <td>14/05/2025 15:30</td>
+                  <td>6h 15m</td>
+                  <td>A-08</td>
+                  <td>$9.500</td>
+                  <td class="row-actions">
+                    <button class="btn-icon btn-view" title="Ver Detalle"><i class="fas fa-eye"></i></button>
+                    <button class="btn-icon btn-print" title="Imprimir"><i class="fas fa-print"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>XYZ789</td>
+                  <td>13/05/2025 14:00</td>
+                  <td>13/05/2025 18:45</td>
+                  <td>4h 45m</td>
+                  <td>B-04</td>
+                  <td>$5.000</td>
+                  <td class="row-actions">
+                    <button class="btn-icon btn-view" title="Ver Detalle"><i class="fas fa-eye"></i></button>
+                    <button class="btn-icon btn-print" title="Imprimir"><i class="fas fa-print"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="pagination">
+            <button><i class="fas fa-angle-left"></i></button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button><i class="fas fa-angle-right"></i></button>
+          </div>
+        </section>
+
+        <!-- Pestaña de Configuración -->
+        <section id="settings" class="tab-content">
+          <div class="section-header">
+            <h2>Configuración de Cuenta</h2>
+          </div>
+
+          <div class="settings-container">
+            <div class="profile-settings">
+              <h3>Información Personal</h3>
+              <form id="profileForm">
+                <div class="form-group">
+                  <label for="settingsNombres">Nombres:</label>
+                  <input type="text" id="settingsNombres" name="nombres" value="Juan" required>
+                </div>
+                <div class="form-group">
+                  <label for="settingsApellidos">Apellidos:</label>
+                  <input type="text" id="settingsApellidos" name="apellidos" value="Pérez" required>
+                </div>
+                <div class="form-group">
+                  <label for="settingsUsuario">Usuario:</label>
+                  <input type="text" id="settingsUsuario" name="usuario" value="user123" required>
+                </div>
+                <div class="form-group">
+                  <label for="settingsEmail">Email:</label>
+                  <input type="email" id="settingsEmail" name="email" value="juan.perez@example.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="settingsTelefono">Teléfono:</label>
+                  <input type="tel" id="settingsTelefono" name="telefono" value="311-555-1234">
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+              </form>
+            </div>
+
+            <div class="password-settings">
+              <h3>Cambiar Contraseña</h3>
+              <form id="passwordForm">
+                <div class="form-group">
+                  <label for="currentPassword">Contraseña Actual:</label>
+                  <input type="password" id="currentPassword" name="currentPassword" required>
+                </div>
+                <div class="form-group">
+                  <label for="newPassword">Nueva Contraseña:</label>
+                  <input type="password" id="newPassword" name="newPassword" required>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
+                  <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+              </form>
+            </div>
+
+            <div class="notification-settings">
+              <h3>Notificaciones</h3>
+              <form id="notificationForm">
+                <div class="form-group checkbox-group">
+                  <input type="checkbox" id="notifyEmail" name="notifyEmail" checked>
+                  <label for="notifyEmail">Recibir notificaciones por email</label>
+                </div>
+                <div class="form-group checkbox-group">
+                  <input type="checkbox" id="notifySMS" name="notifySMS" checked>
+                  <label for="notifySMS">Recibir notificaciones por SMS</label>
+                </div>
+                <div class="form-group checkbox-group">
+                  <input type="checkbox" id="notifyReservation" name="notifyReservation" checked>
+                  <label for="notifyReservation">Alertas de reserva</label>
+                </div>
+                <div class="form-group checkbox-group">
+                  <input type="checkbox" id="notifyPromo" name="notifyPromo">
+                  <label for="notifyPromo">Promociones y descuentos</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Preferencias</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal para añadir/editar vehículo -->
+  <div class="modal-backdrop" id="vehicleModal" style="display: none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Añadir Vehículo</h3>
+        <button class="modal-close" id="closeVehicleModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="vehicleForm">
+          <div class="form-group">
+            <label for="vehiclePlate">Placa:</label>
+            <input type="text" id="vehiclePlate" name="plate" required>
+          </div>
+          <div class="form-group">
+            <label for="vehicleType">Tipo:</label>
+            <select id="vehicleType" name="type" required>
+              <option value="auto">Automóvil</option>
+              <option value="moto">Motocicleta</option>
+              <option value="camioneta">Camioneta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vehicleBrand">Marca:</label>
+            <input type="text" id="vehicleBrand" name="brand" required>
+          </div>
+          <div class="form-group">
+            <label for="vehicleModel">Modelo:</label>
+            <input type="text" id="vehicleModel" name="model" required>
+          </div>
+          <div class="form-group">
+            <label for="vehicleYear">Año:</label>
+            <input type="number" id="vehicleYear" name="year" min="1900" max="2025" required>
+          </div>
+          <div class="form-group">
+            <label for="vehicleColor">Color:</label>
+            <input type="text" id="vehicleColor" name="color" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelVehicleModal">Cancelar</button>
+        <button class="btn btn-primary" id="saveVehicle">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2025 Parkin P.B | Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Script para el manejo de pestañas
+    document.addEventListener('DOMContentLoaded', function() {
+      // Manejo de pestañas
+      const tabLinks = document.querySelectorAll('.user-menu a');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Quitar clase active de todos los links
+          tabLinks.forEach(link => link.classList.remove('active'));
+          
+          // Añadir clase active al link actual
+          this.classList.add('active');
+          
+          // Ocultar todos los contenidos
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Mostrar el contenido correspondiente
+          const tab = this.getAttribute('data-tab');
+          document.getElementById(tab).classList.add('active');
+        });
+      });
+      
+      // Manejo de modal para añadir vehículo
+      const btnAddVehicle = document.getElementById('btnAddVehicle');
+      const vehicleModal = document.getElementById('vehicleModal');
+      const closeVehicleModal = document.getElementById('closeVehicleModal');
+      const cancelVehicleModal = document.getElementById('cancelVehicleModal');
+      
+      btnAddVehicle?.addEventListener('click', function() {
+        vehicleModal.style.display = 'flex';
+      });
+      
+      closeVehicleModal?.addEventListener('click', function() {
+        vehicleModal.style.display = 'none';
+      });
+      
+      cancelVehicleModal?.addEventListener('click', function() {
+        vehicleModal.style.display = 'none';
+      });
+      
+      // Cerrar modal haciendo clic fuera
+      window.addEventListener('click', function(e) {
+        if (e.target === vehicleModal) {
+          vehicleModal.style.display = 'none';
+        }
+      });
+      
+      // Manejo de entrada/salida
+      const salidaForm = document.getElementById('salidaForm');
+      const reciboContainer = document.getElementById('reciboContainer');
+      
+      salidaForm?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Aquí iría la lógica para procesar la salida
+        
+        // Mostrar el recibo
+        reciboContainer.style.display = 'block';
+        
+        // Scroll al recibo
+        reciboContainer.scrollIntoView({ behavior: 'smooth' });
+      });
+      
+      // Menú responsive
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      
+      menuToggle?.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

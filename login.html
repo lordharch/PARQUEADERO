@@ -35,18 +35,13 @@
       <h2>Iniciar Sesión</h2>
       <form id="loginForm" class="auth-form">
         <div class="form-group">
-          <label for="usuario">Usuario</label>
-          <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usuario" required>
+          <label for="identificacion">Identificación</label>
+          <input type="text" id="identificacion" name="identificacion" placeholder="Ej: 123456789" required>
         </div>
 
         <div class="form-group">
-          <label for="contrasena">Contraseña</label>
-          <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
-        </div>
-
-        <div class="remember-container">
-          <input type="checkbox" id="recordar" name="recordar">
-          <label for="recordar">Recordar mi sesión</label>
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="Ej: correo@ejemplo.com" required>
         </div>
 
         <button type="submit" class="auth-btn">Iniciar Sesión</button>
@@ -56,7 +51,10 @@
       
       <div class="auth-links">
         <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
-        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+      </div>
+      
+      <div class="admin-info">
+        <p><small><i class="fas fa-info-circle"></i> Para acceso administrativo usar: <strong>admin</strong> / <strong>admin@parkinpb.com</strong></small></p>
       </div>
     </div>
   </main>

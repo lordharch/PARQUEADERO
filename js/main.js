@@ -1,6 +1,6 @@
 /**
- * Sistema de Estacionamiento
- * Código JavaScript organizado por módulos
+ * Sistema de Estacionamiento - Adaptado para BD real
+ * Compatible con PHP backend y BD MySQL
  */
 
 // Módulo para gestión de sesiones
@@ -33,85 +33,93 @@ const SesionManager = {
   }
 };
 
-// Módulo para gestión de usuarios
+// Módulo para gestión de usuarios - Adaptado para BD
 const UsuarioManager = {
   // Registrar un nuevo usuario
-  registrar: function(datosUsuario) {
-    const { usuario } = datosUsuario;
-    
-    if (localStorage.getItem(`usuario_${usuario}`)) {
-      return { exito: false, mensaje: "El usuario ya existe, elige otro." };
+  registrar: async function(datosUsuario) {
+    try {
+      const response = await fetch('backend/registro.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datosUsuario)
+      });
+      
+      const resultado = await response.json();
+      return resultado;
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      return { exito: false, mensaje: "Error de conexión al servidor." };
     }
-    
-    localStorage.setItem(`usuario_${usuario}`, JSON.stringify(datosUsuario));
-    return { exito: true, mensaje: "¡Registro exitoso!" };
   },
   
-  // Verificar credenciales de login
-  verificarCredenciales: function(usuario, contrasena) {
-    if (usuario === "admin" && contrasena === "admin123") {
-      return { exito: true, tipo: "admin" };
-    }
-    
-    const datosGuardados = localStorage.getItem(`usuario_${usuario}`);
-    if (!datosGuardados) {
-      return { exito: false, mensaje: "Usuario no encontrado." };
-    }
-    
-    const datos = JSON.parse(datosGuardados);
-    if (datos.contrasena === contrasena) {
-      return { exito: true, tipo: "usuario" };
-    } else {
-      return { exito: false, mensaje: "Contraseña incorrecta." };
+  // Verificar credenciales de login - SIN CONTRASEÑA
+  verificarCredenciales: async function(identificacion, correo) {
+    try {
+      // Admin hardcodeado
+      if (identificacion === "admin" && correo === "admin@parkinpb.com") {
+        return { exito: true, tipo: "admin", usuario: { identificacion: "admin", nombre_completo: "Administrador" } };
+      }
+      
+      const response = await fetch('backend/login.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identificacion, correo })
+      });
+      
+      const resultado = await response.json();
+      return resultado;
+    } catch (error) {
+      console.error('Error al verificar credenciales:', error);
+      return { exito: false, mensaje: "Error de conexión al servidor." };
     }
   },
   
   // Obtener lista de todos los usuarios registrados
-  obtenerTodosLosUsuarios: function() {
-    const usuarios = [];
-    
-    for (let i = 0; i < localStorage.length; i++) {
-      const clave = localStorage.key(i);
-      if (clave.startsWith("usuario_")) {
-        usuarios.push(JSON.parse(localStorage.getItem(clave)));
-      }
+  obtenerTodosLosUsuarios: async function() {
+    try {
+      const response = await fetch('backend/obtener_usuarios.php');
+      const usuarios = await response.json();
+      return usuarios;
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+      return [];
     }
-    
-    return usuarios;
   },
   
   // Buscar usuario por placa
-  buscarPorPlaca: function(placa) {
-    placa = placa.trim().toUpperCase();
-    
-    for (let i = 0; i < localStorage.length; i++) {
-      const clave = localStorage.key(i);
-      if (clave.startsWith("usuario_")) {
-        const datos = JSON.parse(localStorage.getItem(clave));
-        if (datos.placa.toUpperCase() === placa) {
-          return datos;
-        }
-      }
+  buscarPorPlaca: async function(placa) {
+    try {
+      const response = await fetch(`backend/buscar_por_placa.php?placa=${encodeURIComponent(placa)}`);
+      const resultado = await response.json();
+      return resultado.usuario || null;
+    } catch (error) {
+      console.error('Error al buscar por placa:', error);
+      return null;
     }
-    
-    return null;
   }
 };
 
-// Módulo para gestionar espacios de estacionamiento
+// Módulo para gestionar espacios de estacionamiento - Adaptado para BD
 const EspaciosManager = {
-  // Datos de espacios disponibles
-  espacios: [
-    { id: 1, ubicacion: "Bloque A - 01", estado: "Disponible" },
-    { id: 2, ubicacion: "Bloque A - 02", estado: "Ocupado" },
-    { id: 3, ubicacion: "Bloque B - 03", estado: "Disponible" },
-    { id: 4, ubicacion: "Bloque B - 04", estado: "Disponible" },
-    { id: 5, ubicacion: "Bloque C - 05", estado: "Ocupado" }
-  ],
-  
   // Obtener todos los espacios
-  obtenerTodos: function() {
-    return this.espacios;
+  obtenerTodos: async function() {
+    try {
+      const response = await fetch('backend/obtener_espacios.php');
+      const espacios = await response.json();
+      return espacios;
+    } catch (error) {
+      console.error('Error al obtener espacios:', error);
+      // Fallback con datos de ejemplo
+      return [
+        { id_espacio: 1, codigo_espacio: "A-01", zona: "Bloque A", estado: "disponible" },
+        { id_espacio: 2, codigo_espacio: "A-02", zona: "Bloque A", estado: "ocupado" },
+        { id_espacio: 3, codigo_espacio: "B-03", zona: "Bloque B", estado: "disponible" }
+      ];
+    }
   }
 };
 
@@ -145,49 +153,59 @@ const UIManager = {
     if (menu && sesion) {
       if (sesion.tipo === "usuario") {
         menu.innerHTML = `
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="ubicacion.html">¿Dónde estamos?</a></li>
-          <li><a href="espacios.html">Espacios</a></li>
-          <li><a href="retiro.html">Retiro Vehículo</a></li>
+          <li><a href="usuario.html">Panel Usuario</a></li>
           <li><a href="#" onclick="SesionManager.cerrarSesion()">Cerrar sesión</a></li>
         `;
       } else if (sesion.tipo === "admin") {
         menu.innerHTML = `
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="ubicacion.html">¿Dónde estamos?</a></li>
-          <li><a href="admin.html">Administrador</a></li>
+          <li><a href="admin.html">Panel Admin</a></li>
           <li><a href="#" onclick="SesionManager.cerrarSesion()">Cerrar sesión</a></li>
         `;
       }
     }
   },
   
-  // Renderizar tabla de espacios
-  renderizarTablaEspacios: function(tabla) {
+  // Renderizar tabla de espacios - Adaptado para estructura BD
+  renderizarTablaEspacios: async function(tabla) {
+    tabla.innerHTML = "<tr><td colspan='3'>Cargando espacios...</td></tr>";
+    
+    const espacios = await EspaciosManager.obtenerTodos();
     tabla.innerHTML = "";
-    EspaciosManager.obtenerTodos().forEach(espacio => {
+    
+    espacios.forEach(espacio => {
       const fila = document.createElement("tr");
+      const estadoColor = {
+        'disponible': 'green',
+        'ocupado': 'red',
+        'reservado': 'orange',
+        'mantenimiento': 'gray'
+      };
+      
       fila.innerHTML = `
-        <td>${espacio.id}</td>
-        <td>${espacio.ubicacion}</td>
-        <td style="color: ${espacio.estado === 'Disponible' ? 'green' : 'red'};">
-          ${espacio.estado}
+        <td>${espacio.id_espacio}</td>
+        <td>${espacio.codigo_espacio} - ${espacio.zona || 'N/A'}</td>
+        <td style="color: ${estadoColor[espacio.estado] || 'black'};">
+          ${espacio.estado.charAt(0).toUpperCase() + espacio.estado.slice(1)}
         </td>
       `;
       tabla.appendChild(fila);
     });
   },
   
-  // Renderizar tabla de usuarios para admin
-  renderizarTablaUsuarios: function(tabla) {
+  // Renderizar tabla de usuarios para admin - Adaptado para BD
+  renderizarTablaUsuarios: async function(tabla) {
+    tabla.innerHTML = "<tr><td colspan='4'>Cargando usuarios...</td></tr>";
+    
+    const usuarios = await UsuarioManager.obtenerTodosLosUsuarios();
     tabla.innerHTML = "";
-    UsuarioManager.obtenerTodosLosUsuarios().forEach(datos => {
+    
+    usuarios.forEach(usuario => {
       const fila = document.createElement("tr");
       fila.innerHTML = `
-        <td>${datos.usuario}</td>
-        <td>${datos.nombres} ${datos.apellidos}</td>
-        <td>${datos.placa}</td>
-        <td>${datos.fechaNacimiento}</td>
+        <td>${usuario.identificacion}</td>
+        <td>${usuario.nombre_completo}</td>
+        <td>${usuario.correo}</td>
+        <td>${usuario.telefono}</td>
       `;
       tabla.appendChild(fila);
     });
@@ -298,48 +316,70 @@ document.addEventListener("DOMContentLoaded", function() {
   // Actualizar el menú según la sesión
   UIManager.actualizarMenu();
   
-  // Inicializar formulario de registro
+  // Inicializar formulario de registro - ADAPTADO PARA BD
   const registroForm = document.getElementById("registroForm");
   const mensajeRegistro = document.getElementById("mensajeRegistro");
   
   if (registroForm) {
-    registroForm.addEventListener("submit", function(e) {
+    registroForm.addEventListener("submit", async function(e) {
       e.preventDefault();
       
+      // Validar contraseñas coincidan
+      const contrasena = document.getElementById("contrasena").value;
+      const confirmarContrasena = document.getElementById("confirmarContrasena").value;
+      
+      if (contrasena !== confirmarContrasena) {
+        UIManager.mostrarMensaje(mensajeRegistro, "Las contraseñas no coinciden.", "error");
+        return;
+      }
+      
       const datosUsuario = {
-        nombres: document.getElementById("nombres").value.trim(),
-        apellidos: document.getElementById("apellidos").value.trim(),
-        placa: document.getElementById("placa").value.trim(),
-        fechaNacimiento: document.getElementById("fechaNacimiento").value,
-        usuario: document.getElementById("usuario").value.trim(),
-        contrasena: document.getElementById("contrasena").value
+        identificacion: document.getElementById("identificacion").value.trim(),
+        nombre_completo: document.getElementById("nombre_completo").value.trim(),
+        correo: document.getElementById("correo").value.trim(),
+        telefono: document.getElementById("telefono").value.trim(),
+        id_tipo_usuario: document.getElementById("id_tipo_usuario").value,
+        placa: document.getElementById("placa").value.trim().toUpperCase()
       };
       
-      const resultado = UsuarioManager.registrar(datosUsuario);
+      // Mostrar mensaje de carga
+      UIManager.mostrarMensaje(mensajeRegistro, "Registrando usuario...", "info");
+      
+      const resultado = await UsuarioManager.registrar(datosUsuario);
       UIManager.mostrarMensaje(mensajeRegistro, resultado.mensaje, resultado.exito ? "exito" : "error");
       
       if (resultado.exito) {
-        registroForm.reset();
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 2000);
       }
     });
   }
   
-  // Inicializar formulario de login
+  // Inicializar formulario de login - SIN CONTRASEÑA
   const loginFormGlobal = document.getElementById("loginForm");
   const mensajeLoginGlobal = document.getElementById("mensajeLogin");
   
   if (loginFormGlobal) {
-    loginFormGlobal.addEventListener("submit", function(e) {
+    loginFormGlobal.addEventListener("submit", async function(e) {
       e.preventDefault();
       
-      const usuario = document.getElementById("usuario").value.trim();
-      const contrasena = document.getElementById("contrasena").value;
+      const identificacion = document.getElementById("identificacion").value.trim();
+      const correo = document.getElementById("correo").value.trim();
       
-      const resultado = UsuarioManager.verificarCredenciales(usuario, contrasena);
+      if (!identificacion || !correo) {
+        UIManager.mostrarMensaje(mensajeLoginGlobal, "Por favor ingrese identificación y correo.", "error");
+        return;
+      }
+      
+      // Mostrar mensaje de carga
+      UIManager.mostrarMensaje(mensajeLoginGlobal, "Verificando credenciales...", "info");
+      
+      const resultado = await UsuarioManager.verificarCredenciales(identificacion, correo);
       
       if (resultado.exito) {
-        SesionManager.guardarSesion(resultado.tipo, usuario);
-        window.location.href = resultado.tipo === "admin" ? "admin.html" : "index.html";
+        SesionManager.guardarSesion(resultado.tipo, resultado.usuario);
+        window.location.href = resultado.tipo === "admin" ? "admin.html" : "usuario.html";
       } else {
         UIManager.mostrarMensaje(mensajeLoginGlobal, resultado.mensaje, "error");
       }
@@ -360,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   if (retiroForm) {
     if (SesionManager.verificarSesion("usuario")) {
-      retiroForm.addEventListener("submit", function(e) {
+      retiroForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         
         const placaInput = document.getElementById("placaRetiro");
@@ -371,7 +411,9 @@ document.addEventListener("DOMContentLoaded", function() {
           return;
         }
         
-        const usuarioEncontrado = UsuarioManager.buscarPorPlaca(placa);
+        UIManager.mostrarMensaje(mensajeRetiro, "Buscando vehículo...", "info");
+        
+        const usuarioEncontrado = await UsuarioManager.buscarPorPlaca(placa);
         
         if (usuarioEncontrado) {
           UIManager.mostrarMensaje(mensajeRetiro, `Vehículo con placa ${placa} ha sido retirado exitosamente.`, "exito");
