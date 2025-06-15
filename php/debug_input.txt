@@ -1,0 +1,1 @@
+{"usuario":{"identificacion":"1025543063","nombre_completo":"Valentina Arce","correo":"valentinaarcesalazar1@gmail.com","telefono":"3107081164","id_tipo_usuario":1,"password":"Harrison8"},"vehiculo":{"placa":"ARC828","id_tipo_vehiculo":3,"marca":"Toyota","modelo":"Dios","color":"Rosado","autorizado":true}}
