@@ -1,0 +1,1 @@
+{"usuario":{"identificacion":"53028847","nombre_completo":"Ana del Pilar Bermeo","correo":"pilar21bermeo@gmail.com","telefono":"3132630151","id_tipo_usuario":1,"password":"123456"},"vehiculo":{"placa":"LSY163","id_tipo_vehiculo":1,"marca":"KIA","modelo":"2024","color":"AMARILLO","autorizado":true}}

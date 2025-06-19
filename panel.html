@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Usuario - Parkin P.B.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #00d4ff;
+            --accent-hover: #00b8e6;
+            --border: #333333;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .welcome-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .welcome-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-available {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-occupied {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .status-reserved {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        /* Tables */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .table-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        /* Action Buttons */
+        .btn {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            nav {
+                padding: 0 1rem;
+            }
+
+            .user-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .table-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Parkin P.B.</a>
+            <div class="user-info">
+                <span class="user-name" id="userName">Cargando...</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1 class="welcome-title">¡Bienvenido <span id="welcomeUserName">Usuario</span>!</h1>
+            <p class="welcome-subtitle">Administra tus vehículos, consulta tu historial y gestiona tus estacionamientos</p>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">🚗</div>
+                    <h3 class="card-title">Mis Vehículos</h3>
+                </div>
+                <div class="card-content">
+                    <div class="stat-value" id="totalVehiculos">-</div>
+                    <div class="stat-label">Vehículos registrados</div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">🅿️</div>
+                    <h3 class="card-title">Estado Actual</h3>
+                </div>
+                <div class="card-content">
+                    <div class="stat-value" id="estadoActual">-</div>
+                    <div class="stat-label" id="estadoDescripcion">Verificando estado...</div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">💰</div>
+                    <h3 class="card-title">Gastos del Mes</h3>
+                </div>
+                <div class="card-content">
+                    <div class="stat-value" id="gastosMes">$-</div>
+                    <div class="stat-label" id="mesCurrent">Total gastado en...</div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Visitas Totales</h3>
+                </div>
+                <div class="card-content">
+                    <div class="stat-value" id="visitasTotales">-</div>
+                    <div class="stat-label">Veces que has usado el parqueadero</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vehicles Table -->
+        <div class="table-container">
+            <h2 class="table-title">Mis Vehículos Registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Color</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="vehiculosTable">
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: var(--text-secondary);">
+                            Cargando vehículos...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recent Activity Table -->
+        <div class="table-container" style="margin-top: 2rem;">
+            <h2 class="table-title">Historial de Acceso Reciente</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha Entrada</th>
+                        <th>Fecha Salida</th>
+                        <th>Placa</th>
+                        <th>Espacio</th>
+                        <th>Estado</th>
+                        <th>Total Pagado</th>
+                    </tr>
+                </thead>
+                <tbody id="historialTable">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: var(--text-secondary);">
+                            Cargando historial...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Spaces Status -->
+        <div class="table-container" style="margin-top: 2rem;">
+            <h2 class="table-title">Estado de Espacios por Zona</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Zona</th>
+                        <th>Espacios Disponibles</th>
+                        <th>Espacios Ocupados</th>
+                        <th>Espacios Reservados</th>
+                        <th>Capacidad Total</th>
+                    </tr>
+                </thead>
+                <tbody id="zonasTable">
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--text-secondary);">
+                            Cargando información de zonas...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            alert("Sesión cerrada.");
+            window.location.href = "registro.html";
+        }
+
+        // Función para inicializar el mes actual
+        function initializeCurrentMonth() {
+            const months = [
+                'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+                'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+            ];
+            const currentMonth = months[new Date().getMonth()];
+            document.getElementById('mesCurrent').textContent = `Total gastado en ${currentMonth}`;
+        }
+
+        // Funciones para cargar datos desde la base de datos
+        
+        // Cargar información del usuario
+        function cargarDatosUsuario(idUsuario) {
+            // Aquí conectarás con tu base de datos
+            // Consulta: SELECT nombre_completo FROM usuario WHERE id_usuario = ?
+            // document.getElementById('userName').textContent = resultado.nombre_completo;
+            // document.getElementById('welcomeUserName').textContent = resultado.nombre_completo;
+        }
+
+        // Cargar estadísticas del dashboard
+function cargarEstadisticas(idUsuario) {
+  fetch('php/usuarios/estadisticas_usuario.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id_usuario: idUsuario })
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        const e = result.estadisticas;
+
+        // Total de vehículos
+        document.getElementById('totalVehiculos').textContent = e.total_vehiculos;
+
+        // Estado actual
+        if (e.vehiculos_activos > 0) {
+          document.getElementById('estadoActual').textContent = 'Estacionado';
+          document.getElementById('estadoDescripcion').textContent = 'Tienes vehículos en el parqueadero';
+        } else {
+          document.getElementById('estadoActual').textContent = 'Disponible';
+          document.getElementById('estadoDescripcion').textContent = 'Ningún vehículo estacionado';
+        }
+
+        // Gastos del mes
+        document.getElementById('gastosMes').textContent = `$${e.gastos_mes.toLocaleString()}`;
+
+        // Visitas totales
+        document.getElementById('visitasTotales').textContent = e.total_visitas;
+      } else {
+        alert('Error al cargar estadísticas: ' + result.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error de red:', error);
+      alert('No se pudieron cargar las estadísticas.');
+    });
+}
+
+
+        // Cargar tabla de vehículos
+function cargarVehiculos(idUsuario) {
+  fetch('php/vehiculos/vehiculos_usuario.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id_usuario: idUsuario })
+  })
+    .then(response => response.json())
+    .then(result => {
+      const tbody = document.getElementById('vehiculosTable');
+      tbody.innerHTML = ''; // Limpiar tabla
+
+      if (result.success && result.vehiculos.length > 0) {
+        result.vehiculos.forEach(vehiculo => {
+          const row = tbody.insertRow();
+          row.innerHTML = `
+            <td>${vehiculo.placa}</td>
+            <td>${vehiculo.tipo}</td>
+            <td>${vehiculo.marca}</td>
+            <td>${vehiculo.modelo}</td>
+            <td>${vehiculo.color}</td>
+            <td>
+              <span class="status-badge ${vehiculo.autorizado ? 'status-active' : 'status-occupied'}">
+                ${vehiculo.autorizado ? 'Autorizado' : 'Pendiente'}
+              </span>
+            </td>
+            <td><button class="btn btn-secondary" onclick="editarVehiculo('${vehiculo.placa}')">Editar</button></td>
+          `;
+        });
+      } else {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; color: var(--text-secondary);">
+              No se encontraron vehículos registrados.
+            </td>
+          </tr>
+        `;
+      }
+    })
+    .catch(error => {
+      console.error('Error de red:', error);
+      alert('No se pudo cargar la información de vehículos.');
+    });
+}
+
+
+        // Cargar historial de accesos
+function cargarHistorial(idUsuario) {
+  fetch('php/usuarios/historial_usuario.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id_usuario: idUsuario })
+  })
+    .then(response => response.json())
+    .then(result => {
+      const tbody = document.getElementById('historialTable');
+      tbody.innerHTML = '';
+
+      if (result.success && result.historial.length > 0) {
+        result.historial.forEach(acceso => {
+          const row = tbody.insertRow();
+
+          const estadoClass =
+            acceso.estado === 'activo' ? 'status-reserved' :
+            acceso.estado === 'finalizado' ? 'status-active' :
+            'status-occupied';
+
+          row.innerHTML = `
+            <td>${new Date(acceso.fecha_entrada).toLocaleString()}</td>
+            <td>${acceso.fecha_salida ? new Date(acceso.fecha_salida).toLocaleString() : '-'}</td>
+            <td>${acceso.placa_vehiculo}</td>
+            <td>${acceso.codigo_espacio || '-'}</td>
+            <td><span class="status-badge ${estadoClass}">${acceso.estado}</span></td>
+            <td>${acceso.total_pagado ? '$' + parseFloat(acceso.total_pagado).toLocaleString() : '-'}</td>
+          `;
+        });
+      } else {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; color: var(--text-secondary);">
+              No hay registros recientes de acceso.
+            </td>
+          </tr>
+        `;
+      }
+    })
+    .catch(error => {
+      console.error('Error de red:', error);
+      alert('No se pudo cargar el historial.');
+    });
+}
+
+
+        // Cargar información de zonas
+function cargarZonas() {
+  fetch('php/zonas/zonas_estacionamiento.php', {
+    method: 'POST'
+  })
+    .then(response => response.json())
+    .then(result => {
+      const tbody = document.getElementById('zonasTable');
+      tbody.innerHTML = '';
+
+      if (result.success && result.zonas.length > 0) {
+        result.zonas.forEach(zona => {
+          const row = tbody.insertRow();
+          row.innerHTML = `
+            <td>${zona.nombre_zona}</td>
+            <td><span class="status-badge status-available">${zona.disponibles}</span></td>
+            <td><span class="status-badge status-occupied">${zona.ocupados}</span></td>
+            <td><span class="status-badge status-reserved">${zona.reservados}</span></td>
+            <td>${zona.capacidad_maxima}</td>
+          `;
+        });
+      } else {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; color: var(--text-secondary);">
+              No hay información disponible de zonas.
+            </td>
+          </tr>
+        `;
+      }
+    })
+    .catch(error => {
+      console.error('Error de red:', error);
+      alert('No se pudo cargar la información de zonas.');
+    });
+}
+
+
+        // Función para editar vehículo
+        function editarVehiculo(placa) {
+            // Implementar lógica para editar vehículo
+            console.log('Editando vehículo:', placa);
+        }
+
+        // Inicializar página cuando se carga
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCurrentMonth();
+
+            const idUsuario = localStorage.getItem('id_usuario');
+            const nombreUsuario = localStorage.getItem('nombre_usuario');
+
+            if (!idUsuario) {
+                alert("Debes iniciar sesión primero.");
+                window.location.href = "registro.html";
+                return;
+            }
+
+            // Mostrar el nombre
+            document.getElementById('userName').textContent = nombreUsuario;
+            document.getElementById('welcomeUserName').textContent = nombreUsuario;
+
+            // Cargar todos los datos reales desde PHP
+            cargarDatosUsuario(idUsuario);
+            cargarEstadisticas(idUsuario);
+            cargarVehiculos(idUsuario);
+            cargarHistorial(idUsuario);
+            cargarZonas();
+        });
+
+    </script>
+</body>
+</html>

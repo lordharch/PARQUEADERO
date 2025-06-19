@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador - Parkin P.B.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #00d4ff;
+            --accent-hover: #00b8e6;
+            --border: #333333;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --orange: #f97316;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .admin-badge {
+            background: var(--purple);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .welcome-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .welcome-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .stat-icon.users { background: var(--accent); }
+        .stat-icon.vehicles { background: var(--success); }
+        .stat-icon.zones { background: var(--warning); }
+        .stat-icon.transactions { background: var(--purple); }
+        .stat-icon.spaces { background: var(--orange); }
+        .stat-icon.cameras { background: var(--danger); }
+
+        .stat-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Tables */
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .status-available {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-occupied {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .status-reserved {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .status-maintenance {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--purple);
+            border: 1px solid var(--purple);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .close {
+            color: var(--text-secondary);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            nav {
+                padding: 0 1rem;
+            }
+
+            .user-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-content {
+                padding: 1rem;
+            }
+
+            .table-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .table-actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div style="display: flex; align-items: center;">
+                <a href="#" class="logo">Parkin P.B.</a>
+                <span class="admin-badge">ADMIN</span>
+            </div>
+            <div class="user-info">
+                <span class="user-name" id="adminName">Administrador</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1 class="welcome-title">Panel de Administración</h1>
+            <p class="welcome-subtitle">Gestiona usuarios, vehículos, espacios y monitorea el sistema completo</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon users">👥</div>
+                    <div class="stat-title">Usuarios Registrados</div>
+                </div>
+                <div class="stat-value" id="totalUsuarios">-</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon vehicles">🚗</div>
+                    <div class="stat-title">Vehículos Autorizados</div>
+                </div>
+                <div class="stat-value" id="totalVehiculos">-</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon zones">🅿️</div>
+                    <div class="stat-title">Zonas Activas</div>
+                </div>
+                <div class="stat-value" id="totalZonas">-</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon spaces">📍</div>
+                    <div class="stat-title">Espacios Disponibles</div>
+                </div>
+                <div class="stat-value" id="espaciosDisponibles">-</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon transactions">💰</div>
+                    <div class="stat-title">Transacciones Hoy</div>
+                </div>
+                <div class="stat-value" id="transaccionesHoy">-</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon cameras">📹</div>
+                    <div class="stat-title">Cámaras Activas</div>
+                </div>
+                <div class="stat-value" id="camarasActivas">-</div>
+            </div>
+        </div>
+
+        <!-- Tabs Container -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" onclick="openTab('usuarios')">Usuarios</button>
+                <button class="tab" onclick="openTab('vehiculos')">Vehículos</button>
+                <button class="tab" onclick="openTab('zonas')">Zonas</button>
+                <button class="tab" onclick="openTab('espacios')">Espacios</button>
+                <button class="tab" onclick="openTab('camaras')">Cámaras</button>
+                <button class="tab" onclick="openTab('accesos')">Accesos</button>
+                <button class="tab" onclick="openTab('transacciones')">Transacciones</button>
+                <button class="tab" onclick="openTab('eventos')">Eventos</button>
+            </div>
+
+            <!-- Usuarios Tab -->
+            <div id="usuarios" class="tab-content active">
+                <div class="table-header">
+                    <h3 class="table-title">Gestión de Usuarios</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-success" onclick="openModal('nuevoUsuario')">Nuevo Usuario</button>
+                        <button class="btn btn-secondary" onclick="exportarUsuarios()">Exportar</button>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar usuarios..." id="searchUsuarios">
+                    <button class="btn" onclick="buscarUsuarios()">Buscar</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Identificación</th>
+                            <th>Nombre Completo</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios">
+                        <tr><td colspan="8" style="text-align: center;">Cargando usuarios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Vehículos Tab -->
+            <div id="vehiculos" class="tab-content">
+                <div class="table-header">
+                    <h3 class="table-title">Gestión de Vehículos</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-success" onclick="openModal('nuevoVehiculo')">Nuevo Vehículo</button>
+                        <button class="btn btn-warning" onclick="autorizarPendientes()">Autorizar Pendientes</button>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar por placa..." id="searchVehiculos">
+                    <button class="btn" onclick="buscarVehiculos()">Buscar</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Propietario</th>
+                            <th>Tipo</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Color</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaVehiculos">
+                        <tr><td colspan="8" style="text-align: center;">Cargando vehículos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Zonas Tab -->
+            <div id="zonas" class="tab-content">
+                <div class="table-header">
+                    <h3 class="table-title">Gestión de Zonas</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-success" onclick="openModal('nuevaZona')">Nueva Zona</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Capacidad Máxima</th>
+                            <th>Espacios Ocupados</th>
+                            <th>Disponibles</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaZonas">
+                        <tr><td colspan="6" style="text-align: center;">Cargando zonas...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Espacios Tab -->
+            <div id="espacios" class="tab-content">
+                <div class="table-header">
+                    <h3 class="table-title">Gestión de Espacios</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-success" onclick="openModal('nuevoEspacio')">Nuevo Espacio</button>
+                        <button class="btn btn-warning" onclick="liberarEspacios()">Liberar Espacios</button>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <select class="search-input" id="filtroZona" onchange="filtrarEspacios()">
+                        <option value="">Todas las zonas</option>
+                    </select>
+                    <select class="search-input" id="filtroEstado" onchange="filtrarEspacios()">
+                        <option value="">Todos los estados</option>
+                        <option value="disponible">Disponible</option>
+                        <option value="ocupado">Ocupado</option>
+                        <option value="reservado">Reservado</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Código</th>
+                            <th>Zona</th>
+                            <th>Tipo Vehículo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEspacios">
+                        <tr><td colspan="6" style="text-align: center;">Cargando espacios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cámaras Tab -->
+            <div id="camaras" class="tab-content">
+                <div class="table-header">
+                    <h3 class="table-title">Gestión de Cámaras</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-success" onclick="openModal('nuevaCamara')">Nueva Cámara</button>
+                        <button class="btn btn-warning" onclick="verificarCamaras()">Verificar Todas</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Zona</th>
+                            <th>Dirección IP</th>
+                            <th>Última Verificación</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaCamaras">
+                        <tr><td colspan="7" style="text-align: center;">Cargando cámaras...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Accesos Tab -->
+            <div id="accesos" class="tab-content">
+                <div class="table-header">
+                    <h3 class="table-title">Registro de Accesos</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-secondary" onclick="exportarAccesos()">Exportar</button>
+                        <button class="btn btn-warning" onclick="resolverAnomalias()">Resolver Anomalías</button>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar por placa..." id="searchAccesos">
+                    <select class="search-input" id="filtroEstadoAcceso" onchange="filtrarAccesos()">
+                        <option value="">Todos los estados</option>
+                        <option value="activo">Activo</option>
+                        <option value="finalizado">Finalizado</option>
+                        <option value="anomalia">Anomalía</option>
+                    </select>
+                    <input type="date" class="search-input" id="fechaAcceso" onchange="filtrarAccesos()">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Placa</th>
+                            <th>Espacio</th>
+                            <th>Fecha Entrada</th>
+                            <th>Fecha Salida</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaAccesos">
+                        <tr><td colspan="7" style="text-align: center;">Cargando accesos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Transacciones Tab -->
+            <div id="transacciones" class="tab-content">
+                <div class="table-header">
+                    <h3 class="table-title">Historial de Transacciones</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-secondary" onclick="exportarTransacciones()">Exportar</button>
+                        <button class="btn" onclick="generarReporte()">Generar Reporte</button>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <input type="date" class="search-input" id="fechaDesde">
+                    <input type="date" class="search-input" id="fechaHasta">
+                    <button class="btn" onclick="filtrarTransacciones()">Filtrar</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Acceso</th>
+                            <th>Fecha</th>
+                            <th>Tiempo Estadía</th>
+                            <th>Subtotal</th>
+                            <th>Descuentos</th>
+                            <th>Total</th>
+                            <th>Comprobante</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaTransacciones">
+                        <tr><td colspan="8" style="text-align: center;">Cargando transacciones...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Eventos Tab -->
+            <div id="eventos" class="tab-content">
+                <div class="table-header">
+                    <h3 class="table-title">Eventos de Seguridad</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-danger" onclick="marcarCriticos()">Marcar Críticos</button>
+                        <button class="btn btn-warning" onclick="resolverEventos()">Resolver Pendientes</button>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <select class="search-input" id="filtroTipoEvento" onchange="filtrarEventos()">
+                        <option value="">Todos los tipos</option>
+                    </select>
+                    <select class="search-input" id="filtroEstadoEvento" onchange="filtrarEventos()">
+                        <option value="">Todos los estados</option>
+                        <option value="reportado">Reportado</option>
+                        <option value="investigacion">En Investigación</option>
+                        <option value="resuelto">Resuelto</option>
+                        <option value="escalado">Escalado</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Prioridad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEventos">
+                        <tr><td colspan="7" style="text-align: center;">Cargando eventos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Título</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modalBody">
+                <!-- Contenido dinámico del modal -->
+            </div>
+        </div>
+    </div>
+
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
