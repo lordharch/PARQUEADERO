@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal - Librería Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .menu-opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .opcion {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .opcion:hover {
+            background-color: #45a049;
+        }
+        .opcion-secondary {
+            background-color: #2196F3;
+        }
+        .opcion-secondary:hover {
+            background-color: #1976D2;
+        }
+        .descripcion {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 Librería Web App</h1>
+        <p class="descripcion">
+            Sistema de gestión de usuarios para la librería.<br>
+            Selecciona una opción del menú para continuar.
+        </p>
+        
+        <div class="menu-opciones">
+            <a href="index.html" class="opcion">
+                📝 Registrar Nuevo Usuario
+            </a>
+            <a href="usuario" class="opcion opcion-secondary">
+                👥 Ver Lista de Usuarios
+            </a>
+        </div>
+    </div>
+</body>
+</html>
