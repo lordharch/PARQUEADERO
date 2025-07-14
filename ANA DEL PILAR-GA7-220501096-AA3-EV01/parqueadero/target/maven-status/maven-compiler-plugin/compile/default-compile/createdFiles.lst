@@ -1,0 +1,10 @@
+com\parqueo\vehiculo\controller\VehiculoController.class
+com\parqueo\vehiculo\repository\VehiculoRepository.class
+com\parqueo\usuario\service\UsuarioService.class
+com\parqueo\vehiculo\service\VehiculoService.class
+com\parqueo\usuario\ParqueaderoApplication.class
+com\parqueo\usuario\repository\UsuarioRepository.class
+com\parqueo\usuario\HomeController.class
+com\parqueo\usuario\controller\UsuarioController.class
+com\parqueo\vehiculo\model\Vehiculo.class
+com\parqueo\usuario\model\Usuario.class
