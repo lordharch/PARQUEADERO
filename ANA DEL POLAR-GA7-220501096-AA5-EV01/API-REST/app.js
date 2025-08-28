@@ -21,5 +21,7 @@ app.get('/', (req, res) => {
 
 const postRoutes = require('./routes/post');
 app.use('/posts', postRoutes);
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
 app.listen(10000);
