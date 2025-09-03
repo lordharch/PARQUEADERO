@@ -1,23 +1,31 @@
 <?php
-require '../db/db_connect.php';
+header('Content-Type: application/json');
+require_once __DIR__ . '/../db/db_connect.php';
 
 try {
-    $stmt = $conn->prepare("
-        SELECT 
-            c.id_camara,
-            c.nombre,
-            c.direccion_ip,
-            c.ultima_verificacion,
-            c.estado,
-            z.nombre AS zona
+    $pdo = getPDO();
+    
+    // Obtener todas las cámaras con el nombre de la zona
+    $stmt = $pdo->query("
+        SELECT c.id_camara, c.nombre AS nombre_camara, c.direccion_ip, c.estado, 
+               z.nombre AS zona
         FROM camara c
         INNER JOIN zonaestacionamiento z ON c.id_zona = z.id_zona
     ");
-    $stmt->execute();
+
     $camaras = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode(["success" => true, "camaras" => $camaras]);
+    echo json_encode([
+        "success" => true,
+        "total" => count($camaras),
+        "camaras" => $camaras
+    ]);
 } catch (PDOException $e) {
-    echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "message" => "Error al cargar las cámaras",
+        "error" => $e->getMessage()
+    ]);
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 require '../db/db_connect.php';
-
+$conn = getPDO();  // ✅ conexión activa con PDO
 $response = ['success' => false];
 
 if (!isset($_GET['id'])) {

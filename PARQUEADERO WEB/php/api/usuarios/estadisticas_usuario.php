@@ -1,5 +1,6 @@
 <?php
 require '../db/db_connect.php';
+$conn = getPDO();  // ✅ conexión activa con PDO
 
 header('Content-Type: application/json');
 
@@ -19,7 +20,7 @@ try {
     $stmt->execute([$id_usuario]);
     $vehiculos = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // 2. Vehículos actualmente estacionados (estado activo)
+    // 2. Vehículos actualmente estacionados
     $stmt = $conn->prepare("
         SELECT COUNT(*) as activos 
         FROM acceso a
@@ -56,10 +57,10 @@ try {
     echo json_encode([
         "success" => true,
         "estadisticas" => [
-            "total_vehiculos" => (int)$vehiculos['total_vehiculos'],
-            "vehiculos_activos" => (int)$activos['activos'],
-            "gastos_mes" => (float)$gastos['total_gastado'],
-            "total_visitas" => (int)$visitas['total_visitas']
+            "total_vehiculos"    => (int)$vehiculos['total_vehiculos'],
+            "vehiculos_activos"  => (int)$activos['activos'],
+            "gastos_mes"         => (float)$gastos['total_gastado'],
+            "total_visitas"      => (int)$visitas['total_visitas']
         ]
     ]);
 } catch (PDOException $e) {
