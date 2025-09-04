@@ -1,5 +1,5 @@
 <?php
-require '../db/db_connect.php';
+require_once __DIR__ . '/../../db/db_connect.php';
 
 $conn = getPDO(); // ✅ aquí ya creas la conexión con la función
 

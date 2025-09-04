@@ -1,1 +1,0 @@
-{"usuario":{"identificacion":"0000000000","nombre_completo":"asdjaskdkjask","correo":"Baldionh@gmail.com","telefono":"1231321324565","id_tipo_usuario":1,"password":"papalope"},"vehiculo":{"placa":"213214561","id_tipo_vehiculo":1,"marca":"153213","modelo":"32132","color":"123","autorizado":true}}
